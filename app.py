@@ -32,6 +32,7 @@ def generate_copy(prompt, style):
     temperature=0.7
 )
 
+
     return response["choices"][0]["text"].strip()
 
 # 用户点击生成按钮
