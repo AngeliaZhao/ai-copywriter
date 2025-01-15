@@ -22,12 +22,16 @@ def generate_copy(prompt, style):
         "简洁": "写一个简洁的广告文案："
     }
     full_prompt = style_prompts.get(style, "") + prompt
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=full_prompt,
-        max_tokens=150,
-        temperature=0.7
-    )
+    response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",  # 或者 "gpt-4"
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": full_prompt}
+    ],
+    max_tokens=150,
+    temperature=0.7
+)
+
     return response["choices"][0]["text"].strip()
 
 # 用户点击生成按钮
