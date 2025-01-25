@@ -33,7 +33,7 @@ def generate_copy(prompt, style):
     except Exception as e:
         st.error(f"An error occurred: {str(e)}")
         return ""
-
+        
 # 用户点击生成按钮
 if st.button("生成文案"):
     if user_input:
