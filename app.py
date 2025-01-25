@@ -16,25 +16,25 @@ style = st.selectbox("选择文案风格：", ["正式", "幽默", "简洁"])
 
 # 文案生成函数
 def generate_copy(prompt, style):
+    style_prompts = {
+        "正式": "写一个正式的广告文案：",
+        "幽默": "写一个幽默的广告文案：",
+        "简洁": "写一个简洁的广告文案："
+    }
+
+    full_prompt = style_prompts.get(style, "") + prompt
+
     try:
-        style_prompts = {
-            "正式": "写一个正式的广告文案: ",
-            "幽默": "写一个幽默的广告文案: ",
-            "简洁": "写一个简洁的广告文案: ",
-        }
-full_prompt = style_prompts.get(style, "") + prompt
+        response = openai.Completion.create(
+            model="gpt-3.5-turbo",
+            prompt=full_prompt,
+            max_tokens=100
+        )
+        return response['choices'][0]['text'].strip()
 
-try:
-    response = openai.Completion.create(
-        model="gpt-3.5-turbo",
-        prompt=full_prompt,
-        max_tokens=100
-    )
-    return response['choices'][0]['text'].strip()
-
-except Exception as e:
-    st.error(f"An error occurred: {str(e)}")
-    return ""
+    except Exception as e:
+        st.error(f"发生错误：{str(e)}")
+        return ""
         
 # 用户点击生成按钮
 if st.button("生成文案"):
