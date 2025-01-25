@@ -25,9 +25,11 @@ def generate_copy(prompt, style):
         full_prompt = style_prompts.get(style, "") + prompt
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": full_prompt}]
+            messages=[
+                {"role": "user", "content": full_prompt}
+            ]
         )
-        return response["choices"][0]["text"].strip()
+        return response['choices'][0]['message']['content'].strip()
     except Exception as e:
         st.error(f"An error occurred: {str(e)}")
         return ""
