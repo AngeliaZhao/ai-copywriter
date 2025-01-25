@@ -1,8 +1,13 @@
 import streamlit as st
 import openai
+import os
 
-# 设置 API 密钥
-openai.api_key = "your_openai_api_key"
+# 从环境变量中加载 API 密钥
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# 确认 API 密钥是否加载成功
+if not openai.api_key:
+    raise ValueError("未找到 OPENAI_API_KEY 环境变量，请确保已正确设置")
 
 # Streamlit 应用界面
 st.title("AI 文案生成器")
